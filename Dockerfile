@@ -1,2 +1,4 @@
 FROM pierrezemb/gostatic
-COPY *.html /srv/http/
+COPY index.html /srv/http/
+COPY routes.html /srv/http/
+COPY weather.html /srv/http/
