@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Cleveland Anniversary - For Paige</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose: #c9a9a6;
+            --blush: #f5e6e0;
+            --champagne: #f7f3ed;
+            --gold: #b8860b;
+            --deep-rose: #8b5a5a;
+            --charcoal: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--champagne);
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--champagne) 50%, var(--rose) 100%);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a9a6' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            color: var(--deep-rose);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-style: italic;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .hero .dedication {
+            font-size: 1.3rem;
+            color: var(--deep-rose);
+            margin-top: 2rem;
+            padding: 1.5rem 3rem;
+            border: 1px solid var(--rose);
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .heart-divider {
+            font-size: 2rem;
+            color: var(--rose);
+            margin: 1rem 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(247, 243, 237, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--rose);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--deep-rose);
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            color: var(--deep-rose);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        section .section-subtitle {
+            text-align: center;
+            font-style: italic;
+            color: var(--charcoal);
+            opacity: 0.7;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(139, 90, 90, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(139, 90, 90, 0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            color: white;
+            padding: 1.5rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background: var(--blush);
+            color: var(--deep-rose);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Itinerary Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--rose), var(--deep-rose));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 2rem;
+            width: 50%;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--gold);
+            border: 3px solid white;
+            border-radius: 50%;
+            top: 2.5rem;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -8px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -8px;
+        }
+
+        .timeline-time {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--deep-rose);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(139, 90, 90, 0.1);
+        }
+
+        /* Special Section - Full Day Experience */
+        .full-day {
+            background: linear-gradient(135deg, var(--blush), white);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .full-day h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            color: var(--deep-rose);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Quote */
+        .quote-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--deep-rose), var(--rose));
+            color: white;
+            margin: 3rem 0;
+        }
+
+        .quote-section blockquote {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--charcoal);
+            color: var(--blush);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        footer .hearts {
+            font-size: 2rem;
+            margin: 1rem 0;
+            color: var(--rose);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 50px !important;
+                padding-right: 1rem !important;
+                text-align: left !important;
+            }
+
+            .timeline-item::before {
+                left: 12px !important;
+                right: auto !important;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Winter Theme Additions */
+        .winter-note {
+            background: linear-gradient(135deg, #e8f4f8, white);
+            border-left: 4px solid var(--deep-rose);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .winter-note h4 {
+            color: var(--deep-rose);
+            font-family: 'Playfair Display', Georgia, serif;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#itinerary">Our Day</a></li>
+            <li><a href="#dining">Fine Dining</a></li>
+            <li><a href="#experiences">Experiences</a></li>
+            <li><a href="#hidden-gems">Hidden Gems</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Cleveland Adventures</h1>
+            <p class="subtitle">A Curated Anniversary Experience</p>
+            <div class="heart-divider">&hearts; &hearts; &hearts;</div>
+            <div class="dedication">
+                <p>For my beautiful <strong>Paige</strong></p>
+                <p>Here's to celebrating us in The Land</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="itinerary">
+        <h2>A Perfect Day Together</h2>
+        <p class="section-subtitle">A carefully planned winter day in Cleveland, just for us</p>
+
+        <div class="full-day">
+            <h3>Suggested Anniversary Itinerary</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Late Morning</div>
+                        <div class="timeline-title">West Side Market</div>
+                        <p>Start our day wandering through Cleveland's oldest public market. We'll grab fresh pastries and coffee, sample artisan cheeses, and soak in the bustling atmosphere. Head up to the balcony for a panoramic view of it all.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Early Afternoon</div>
+                        <div class="timeline-title">Cleveland Museum of Art</div>
+                        <p>Explore 6,000 years of art in one of the nation's best free museums. We'll get lost among the galleries, find our favorite pieces, and steal quiet moments in the beautiful glass atrium together.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Late Afternoon</div>
+                        <div class="timeline-title">SoulSpace Wellness</div>
+                        <p>Unwind together at this Gordon Square wellness lounge. We'll enjoy the sauna, steam room, and cold plunge - the perfect way to relax before dinner. Their outdoor relaxation garden has cozy ambient lighting.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Evening</div>
+                        <div class="timeline-title">Dinner at Marble Room</div>
+                        <p>Our main event - an unforgettable dinner in a stunning former bank building. Designer cocktails, exquisite cuisine, and the most romantic atmosphere in Cleveland. I'll book us a booth in the mezzanine for extra privacy.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Night</div>
+                        <div class="timeline-title">Velvet Tango Room</div>
+                        <p>End our night at this legendary speakeasy for handcrafted cocktails in an intimate, candlelit setting. It's the perfect nightcap spot to toast to us.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="winter-note">
+            <h4>Winter in Cleveland</h4>
+            <p>Cleveland transforms into a magical winter wonderland. The cozy indoor venues, warm restaurants, and intimate atmosphere make it perfect for a romantic anniversary celebration. Bundle up for short walks between spots - the crisp air and city lights create their own kind of magic.</p>
+        </div>
+    </section>
+
+    <div class="quote-section">
+        <blockquote>
+            "The best thing to hold onto in life is each other."
+            <br><small>- Audrey Hepburn</small>
+        </blockquote>
+    </div>
+
+    <section id="dining">
+        <h2>Fine Dining</h2>
+        <p class="section-subtitle">Cleveland's most romantic restaurants for our special night</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-header">Marble Room</div>
+                <div class="card-body">
+                    <p>A breathtaking former bank building transformed into Cleveland's most luxurious dining destination. Soaring ceilings, spectacular interiors, and expertly crafted cocktails create pure romance.</p>
+                    <span class="card-tag">Downtown</span>
+                    <span class="card-tag">Special Occasion</span>
+                    <span class="card-tag">Cocktails</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">White Oaks Restaurant</div>
+                <div class="card-body">
+                    <p>Nine-time winner and six consecutive years voted #1 Most Romantic Restaurant in Cleveland. This is where Cleveland goes to celebrate love.</p>
+                    <span class="card-tag">Award Winner</span>
+                    <span class="card-tag">Classic Romance</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Pier W</div>
+                <div class="card-body">
+                    <p>A Cleveland institution since 1965, featuring a cantilevered dining room that extends over Lake Erie. Incredible views of the downtown skyline, especially stunning at sunset.</p>
+                    <span class="card-tag">Lakewood</span>
+                    <span class="card-tag">Lake Views</span>
+                    <span class="card-tag">Seafood</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Dante Restaurant</div>
+                <div class="card-body">
+                    <p>Cleveland's only restaurant with a Michelin-starred chef, Dante Boccuzzi. Located in charming Tremont, offering an elevated American menu with creative twists.</p>
+                    <span class="card-tag">Tremont</span>
+                    <span class="card-tag">Michelin Chef</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Bartleby Cleveland</div>
+                <div class="card-body">
+                    <p>An Ohio City gem in a historic 1920s building with grand vaulted ceilings, tapered candles, and whimsical touches like rabbit lamps and a charming tree inside.</p>
+                    <span class="card-tag">Ohio City</span>
+                    <span class="card-tag">Historic</span>
+                    <span class="card-tag">Whimsical</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Baricelli Inn</div>
+                <div class="card-body">
+                    <p>Tucked away in Little Italy, this intimate restaurant is also a small inn. Often called "the most romantic" spot in Cleveland for its cozy, European charm.</p>
+                    <span class="card-tag">Little Italy</span>
+                    <span class="card-tag">Intimate</span>
+                    <span class="card-tag">Charming</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">17 River Grille</div>
+                <div class="card-body">
+                    <p>Floor-to-ceiling windows overlooking the stunning Chagrin Falls. White tablecloths, leather booths, and modern American cuisine create an unforgettable setting.</p>
+                    <span class="card-tag">Chagrin Falls</span>
+                    <span class="card-tag">Waterfall Views</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Blue Point Grille</div>
+                <div class="card-body">
+                    <p>A Cleveland institution in the Historic Warehouse District for over two decades. Sleek, polished, and perfect for oyster lovers and seafood enthusiasts.</p>
+                    <span class="card-tag">Warehouse District</span>
+                    <span class="card-tag">Seafood</span>
+                    <span class="card-tag">Oysters</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiences">
+        <h2>Unique Experiences</h2>
+        <p class="section-subtitle">Beyond dinner - memorable activities for us to share</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-header">Glass Bubble Project</div>
+                <div class="card-body">
+                    <p>Take a private glassblowing class together in Ohio City! We can create our own wine glasses or beer mugs. Date night workshops every Thursday and Friday at 6 PM.</p>
+                    <span class="card-tag">Hands-On</span>
+                    <span class="card-tag">Creative</span>
+                    <span class="card-tag">Memorable</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Cleveland Orchestra at Severance Hall</div>
+                <div class="card-body">
+                    <p>Experience world-class music in a grandiose art deco venue. The intricate adornments and warm lighting create the perfect ambiance for a special night out.</p>
+                    <span class="card-tag">Music</span>
+                    <span class="card-tag">Elegant</span>
+                    <span class="card-tag">Cultural</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Cleveland Museum of Art</div>
+                <div class="card-body">
+                    <p>A world-class collection spanning 6,000 years - and it's completely free! The glass atrium is a perfect spot for quiet conversation. Let's find our favorite pieces together.</p>
+                    <span class="card-tag">Art</span>
+                    <span class="card-tag">Free</span>
+                    <span class="card-tag">Romantic</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">SoulSpace Wellness</div>
+                <div class="card-body">
+                    <p>A Gordon Square wellness lounge where we can unwind together. Sauna, steam room, and cold plunge for about $50 for 2 hours. Their outdoor garden has ambient lighting and cozy loungers.</p>
+                    <span class="card-tag">Relaxation</span>
+                    <span class="card-tag">Wellness</span>
+                    <span class="card-tag">Couples</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Rock and Roll Hall of Fame</div>
+                <div class="card-body">
+                    <p>Explore the history of rock and roll together. Even if we've been before, there's always something new to discover. Perfect for music lovers!</p>
+                    <span class="card-tag">Music History</span>
+                    <span class="card-tag">Iconic</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Aut-O-Rama Drive-In</div>
+                <div class="card-body">
+                    <p>Old-fashioned charm at a drive-in that's been around since the 60s. Movies under the stars from the comfort of our car - nostalgia at its finest.</p>
+                    <span class="card-tag">Nostalgic</span>
+                    <span class="card-tag">Movies</span>
+                    <span class="card-tag">Cozy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hidden-gems">
+        <h2>Hidden Gems</h2>
+        <p class="section-subtitle">Secret spots and unexpected delights waiting for us</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-header">Velvet Tango Room</div>
+                <div class="card-body">
+                    <p>A legendary speakeasy with intimate, candlelit vibes. Handcrafted cocktails in one of Cleveland's best-kept secrets. Perfect for ending our night.</p>
+                    <span class="card-tag">Speakeasy</span>
+                    <span class="card-tag">Cocktails</span>
+                    <span class="card-tag">Intimate</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Mahall's 20 Lanes</div>
+                <div class="card-body">
+                    <p>Retro bowling in Lakewood with live music, dancing, and great food. Their basement lounge "Pins and Needles" has 70s-inspired decor - a true hidden gem.</p>
+                    <span class="card-tag">Lakewood</span>
+                    <span class="card-tag">Bowling</span>
+                    <span class="card-tag">Retro</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">LBM Viking Bar</div>
+                <div class="card-body">
+                    <p>A Viking-themed bar in Lakewood with bold drinks like "Ocean of Wounds" and "Blood Eagle." Dark vibes and a killer playlist for something completely different.</p>
+                    <span class="card-tag">Unique</span>
+                    <span class="card-tag">Themed</span>
+                    <span class="card-tag">Adventure</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Buckland Museum of Witchcraft</div>
+                <div class="card-body">
+                    <p>An off-the-beaten-path adventure featuring crystal balls, enchanted cloaks, and stories of witches. For when we want something truly unexpected!</p>
+                    <span class="card-tag">Quirky</span>
+                    <span class="card-tag">Unique</span>
+                    <span class="card-tag">Adventure</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Super Electric Pinball Parlour</div>
+                <div class="card-body">
+                    <p>Vintage pinball machines for a playful, competitive date night. A retro atmosphere that's perfect for some friendly competition between us.</p>
+                    <span class="card-tag">Games</span>
+                    <span class="card-tag">Retro</span>
+                    <span class="card-tag">Fun</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Le Petit Triangle</div>
+                <div class="card-body">
+                    <p>A hidden gem serving authentic French cuisine at affordable prices. Perfect for a cozy brunch or intimate dinner in Ohio City.</p>
+                    <span class="card-tag">French</span>
+                    <span class="card-tag">Hidden Gem</span>
+                    <span class="card-tag">Ohio City</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Cloak & Dagger</div>
+                <div class="card-body">
+                    <p>A dark, cozy Tremont bar with the aesthetic of an author's study. Designer cocktails and a distinctive all-vegan menu for something unique.</p>
+                    <span class="card-tag">Tremont</span>
+                    <span class="card-tag">Cozy</span>
+                    <span class="card-tag">Vegan</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Lakewood Solstice Steps</div>
+                <div class="card-body">
+                    <p>Masonry stairs along Lake Erie, oriented to point directly at the setting sun on the summer solstice. Even in winter, the sunset views are magical.</p>
+                    <span class="card-tag">Scenic</span>
+                    <span class="card-tag">Sunset</span>
+                    <span class="card-tag">Free</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="hearts">&hearts; &hearts; &hearts;</div>
+        <p>Made with love for Paige</p>
+        <p style="margin-top: 1rem; font-size: 1rem; opacity: 0.8;">Here's to our Cleveland adventure together</p>
+        <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.6;">Happy Anniversary</p>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
