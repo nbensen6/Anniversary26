@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Routes - Our Cleveland Anniversary</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -258,6 +260,63 @@
             font-style: italic;
         }
 
+        .map-container {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(139, 90, 90, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .map-header {
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .map-header h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        #route-map {
+            height: 400px;
+            width: 100%;
+        }
+
+        .map-legend {
+            padding: 1rem 2rem;
+            background: var(--blush);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .leaflet-popup-content {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1rem;
+        }
+
+        .leaflet-popup-content strong {
+            color: var(--deep-rose);
+        }
+
         @media (max-width: 768px) {
             nav ul {
                 gap: 1rem;
@@ -301,6 +360,22 @@
     </div>
 
     <div class="routes-container">
+        <!-- Interactive Map -->
+        <div class="map-container">
+            <div class="map-header">
+                <h3>Full Day Route Map</h3>
+            </div>
+            <div id="route-map"></div>
+            <div class="map-legend">
+                <div class="legend-item"><div class="legend-dot" style="background: #e74c3c;"></div> West Side Market</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #9b59b6;"></div> Cleveland Zoo</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #3498db;"></div> SoulSpace</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #27ae60;"></div> 17 River Grille</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #f39c12;"></div> M Bevy</div>
+            </div>
+        </div>
+
+    <div class="routes-container" style="padding-top: 0;">
         <!-- Stop 1: West Side Market -->
         <div class="route-card">
             <div class="route-header">
@@ -454,9 +529,78 @@
             </a>
         </div>
     </div>
+    </div>
 
     <footer>
         <p>Made with love for my Pepper 🌶️</p>
     </footer>
+
+    <script>
+        // Initialize the map
+        const map = L.map('route-map').setView([41.48, -81.55], 11);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define locations with coordinates
+        const locations = [
+            { name: 'West Side Market', lat: 41.4847, lng: -81.7028, color: '#e74c3c', time: 'Late Morning' },
+            { name: 'Cleveland Metroparks Zoo', lat: 41.4459, lng: -81.7126, color: '#9b59b6', time: 'Early Afternoon' },
+            { name: 'SoulSpace Wellness', lat: 41.4821, lng: -81.7369, color: '#3498db', time: 'Late Afternoon' },
+            { name: '17 River Grille', lat: 41.4311, lng: -81.3922, color: '#27ae60', time: 'Evening' },
+            { name: 'M Bevy', lat: 41.4314, lng: -81.3917, color: '#f39c12', time: 'Night' }
+        ];
+
+        // Create custom icon function
+        function createIcon(color, number) {
+            return L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="
+                    background: ${color};
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                    font-family: 'Playfair Display', serif;
+                    border: 3px solid white;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                ">${number}</div>`,
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -15]
+            });
+        }
+
+        // Add markers
+        locations.forEach((loc, index) => {
+            const marker = L.marker([loc.lat, loc.lng], {
+                icon: createIcon(loc.color, index + 1)
+            }).addTo(map);
+
+            marker.bindPopup(`
+                <strong>${index + 1}. ${loc.name}</strong><br>
+                <em>${loc.time}</em>
+            `);
+        });
+
+        // Draw route line connecting all points
+        const routeCoords = locations.map(loc => [loc.lat, loc.lng]);
+        const routeLine = L.polyline(routeCoords, {
+            color: '#8b5a5a',
+            weight: 3,
+            opacity: 0.7,
+            dashArray: '10, 10'
+        }).addTo(map);
+
+        // Fit map to show all markers
+        const bounds = L.latLngBounds(routeCoords);
+        map.fitBounds(bounds, { padding: [30, 30] });
+    </script>
 </body>
 </html>
