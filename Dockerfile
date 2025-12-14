@@ -1,2 +1,2 @@
 FROM pierrezemb/gostatic
-COPY index.html /srv/http/
+COPY *.html /srv/http/

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes - Our Cleveland Anniversary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose: #c9a9a6;
+            --blush: #f5e6e0;
+            --champagne: #f7f3ed;
+            --gold: #b8860b;
+            --deep-rose: #8b5a5a;
+            --charcoal: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--champagne);
+            color: var(--charcoal);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(247, 243, 237, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--rose);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--deep-rose);
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--champagne) 100%);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--deep-rose);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .routes-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .route-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(139, 90, 90, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .route-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 90, 90, 0.15);
+        }
+
+        .route-header {
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .route-number {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .route-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+        }
+
+        .route-time {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .route-body {
+            padding: 2rem;
+        }
+
+        .route-address {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--rose);
+        }
+
+        .route-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .route-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        .route-btn.apple {
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .route-btn.apple:hover {
+            background: #000;
+            transform: scale(1.05);
+        }
+
+        .route-btn.google {
+            background: white;
+            color: var(--charcoal);
+            border: 2px solid var(--charcoal);
+        }
+
+        .route-btn.google:hover {
+            background: var(--charcoal);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .route-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .connector {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .connector-line {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--rose), var(--deep-rose));
+            position: relative;
+        }
+
+        .connector-line::after {
+            content: '↓';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--deep-rose);
+            font-size: 1.2rem;
+        }
+
+        .full-route {
+            background: linear-gradient(135deg, var(--deep-rose), var(--rose));
+            color: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .full-route h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .full-route p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .full-route .route-btn {
+            background: white;
+            color: var(--deep-rose);
+        }
+
+        .full-route .route-btn:hover {
+            background: var(--champagne);
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--charcoal);
+            color: var(--blush);
+        }
+
+        footer p {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            .route-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .route-buttons {
+                flex-direction: column;
+            }
+
+            .route-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#itinerary">Our Day</a></li>
+            <li><a href="index.html#dining">Fine Dining</a></li>
+            <li><a href="index.html#experiences">Experiences</a></li>
+            <li><a href="index.html#hidden-gems">Hidden Gems</a></li>
+            <li><a href="routes.html">Routes</a></li>
+            <li><a href="weather.html">Weather</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>Our Day's Journey</h1>
+        <p>Tap any location to get directions in Apple Maps</p>
+    </div>
+
+    <div class="routes-container">
+        <!-- Stop 1: West Side Market -->
+        <div class="route-card">
+            <div class="route-header">
+                <div class="route-number">1</div>
+                <div>
+                    <div class="route-title">West Side Market</div>
+                    <div class="route-time">Late Morning</div>
+                </div>
+            </div>
+            <div class="route-body">
+                <p class="route-address">
+                    1979 W 25th St<br>
+                    Cleveland, OH 44113
+                </p>
+                <div class="route-buttons">
+                    <a href="https://maps.apple.com/?address=1979%20W%2025th%20St,%20Cleveland,%20OH%2044113&ll=41.4847,-81.7028&q=West%20Side%20Market" class="route-btn apple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        Apple Maps
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=1979+W+25th+St,+Cleveland,+OH+44113" class="route-btn google">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><div class="connector-line"></div></div>
+
+        <!-- Stop 2: Crocker Park -->
+        <div class="route-card">
+            <div class="route-header">
+                <div class="route-number">2</div>
+                <div>
+                    <div class="route-title">Crocker Park Ice Skating</div>
+                    <div class="route-time">Early Afternoon</div>
+                </div>
+            </div>
+            <div class="route-body">
+                <p class="route-address">
+                    186 Union St (Union Square)<br>
+                    Westlake, OH 44145
+                </p>
+                <div class="route-buttons">
+                    <a href="https://maps.apple.com/?address=186%20Union%20St,%20Westlake,%20OH%2044145&ll=41.4617,-81.9497&q=Crocker%20Park%20Ice%20Rink" class="route-btn apple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        Apple Maps
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=186+Union+St,+Westlake,+OH+44145" class="route-btn google">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><div class="connector-line"></div></div>
+
+        <!-- Stop 3: SoulSpace -->
+        <div class="route-card">
+            <div class="route-header">
+                <div class="route-number">3</div>
+                <div>
+                    <div class="route-title">SoulSpace Wellness</div>
+                    <div class="route-time">Late Afternoon</div>
+                </div>
+            </div>
+            <div class="route-body">
+                <p class="route-address">
+                    6520 Detroit Ave<br>
+                    Cleveland, OH 44102
+                </p>
+                <div class="route-buttons">
+                    <a href="https://maps.apple.com/?address=6520%20Detroit%20Ave,%20Cleveland,%20OH%2044102&ll=41.4821,-81.7369&q=SoulSpace" class="route-btn apple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        Apple Maps
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=6520+Detroit+Ave,+Cleveland,+OH+44102" class="route-btn google">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><div class="connector-line"></div></div>
+
+        <!-- Stop 4: 17 River Grille -->
+        <div class="route-card">
+            <div class="route-header">
+                <div class="route-number">4</div>
+                <div>
+                    <div class="route-title">17 River Grille</div>
+                    <div class="route-time">Evening - Dinner</div>
+                </div>
+            </div>
+            <div class="route-body">
+                <p class="route-address">
+                    17 River St<br>
+                    Chagrin Falls, OH 44022
+                </p>
+                <div class="route-buttons">
+                    <a href="https://maps.apple.com/?address=17%20River%20St,%20Chagrin%20Falls,%20OH%2044022&ll=41.4311,-81.3922&q=17%20River%20Grille" class="route-btn apple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        Apple Maps
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=17+River+St,+Chagrin+Falls,+OH+44022" class="route-btn google">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="connector"><div class="connector-line"></div></div>
+
+        <!-- Stop 5: Velvet Tango Room -->
+        <div class="route-card">
+            <div class="route-header">
+                <div class="route-number">5</div>
+                <div>
+                    <div class="route-title">Velvet Tango Room</div>
+                    <div class="route-time">Night - Cocktails</div>
+                </div>
+            </div>
+            <div class="route-body">
+                <p class="route-address">
+                    2095 Columbus Rd<br>
+                    Cleveland, OH 44113
+                </p>
+                <div class="route-buttons">
+                    <a href="https://maps.apple.com/?address=2095%20Columbus%20Rd,%20Cleveland,%20OH%2044113&ll=41.4848,-81.7044&q=Velvet%20Tango%20Room" class="route-btn apple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        Apple Maps
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=2095+Columbus+Rd,+Cleveland,+OH+44113" class="route-btn google">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Full Route Card -->
+        <div class="full-route">
+            <h3>Full Day Route</h3>
+            <p>Get directions for the complete journey with all stops</p>
+            <a href="https://maps.apple.com/?daddr=1979+W+25th+St,+Cleveland,+OH+44113&dirflg=d" class="route-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Start Navigation to First Stop
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made with love for my Pepper 🌶️</p>
+    </footer>
+</body>
+</html>
