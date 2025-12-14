@@ -399,19 +399,19 @@
             <li><a href="#dining">Fine Dining</a></li>
             <li><a href="#experiences">Experiences</a></li>
             <li><a href="#hidden-gems">Hidden Gems</a></li>
-            <li><a href="routes.html">Routes</a></li>
-            <li><a href="weather.html">Weather</a></li>
+            <li><a href="routes.html" class="external">Routes</a></li>
+            <li><a href="weather.html" class="external">Weather</a></li>
         </ul>
     </nav>
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Cleveland Adventures</h1>
+            <h1>Merry Christmas</h1>
             <p class="subtitle">A Curated Anniversary Experience</p>
             <div class="heart-divider">&hearts; &hearts; &hearts;</div>
             <div class="dedication">
                 <p>For my <strong>Pepper</strong> 🌶️</p>
-                <p>ti amo 🇮🇹</p>
+                <p>Ti Amo 🇮🇹</p>
             </div>
         </div>
     </section>
@@ -736,8 +736,8 @@
             observer.observe(el);
         });
 
-        // Smooth scroll for nav links
-        document.querySelectorAll('nav a').forEach(anchor => {
+        // Smooth scroll for nav links (only for same-page anchors)
+        document.querySelectorAll('nav a:not(.external)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
